@@ -5,7 +5,7 @@
     "ControllerName": "2337432",
     "ControllerLabel": "2337432",
     "ControllerClientID": 13743,
-    "ClientName": "jciadmin",
+    "ClientName": "<REDACTED_CLIENT_NAME>",
     "Description": "SOT",
     "MIDLetVersion": "8.3.148",
     "CardNo": "<REDACTED_SIM_IDENTIFIER>",
@@ -23,8 +23,12 @@
     "GPRSAdemcoUrl": "SG-SYSTEM3",
     "Connected": true,
     "ConnectedSince": 1791386365730,
-    "ConnectedProxyUrls": "185.201.83.50",
-    "ConnectedEndpointUrls": "185.201.83.50",
+    "ConnectedProxyUrls": [
+      "<REDACTED_URL>"
+    ],
+    "ConnectedEndpointUrls": [
+      "<REDACTED_URL>"
+    ],
     "HasCamera": false,
     "ControlExternalDevices": true,
     "SOrder": 2337432,
