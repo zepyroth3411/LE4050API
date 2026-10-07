@@ -50,7 +50,7 @@ collection:
       mimeType: application/json
       text: |-
         {
-          "AuthCode": "732cc7a0-65af-47f1-9a98-5d3b075a9df5"
+          "AuthCode": "<REDACTED_AUTH_CODE>"
         }
     headers:
       - name: Content-Type
@@ -80,7 +80,7 @@ collection:
       - name: Content-Type
         value: application/json
       - name: M2MOAuth2Token
-        value: 5addab9c547a4d1ea298268fb4c1da83
+        value: "<REDACTED_ACCESS_TOKEN>"
         description: ""
         disabled: false
     settings:
@@ -108,7 +108,7 @@ collection:
       - name: Content-Type
         value: application/json
       - name: M2MOAuth2Token
-        value: 479141e7cdec42a082c4cb41abf61b0b
+        value: "<REDACTED_ACCESS_TOKEN>"
         description: ""
         disabled: false
     settings:
@@ -133,14 +133,14 @@ collection:
       mimeType: application/json
       text: |-
         {
-          "IMEI": "354513597707581",
+          "IMEI": "<REDACTED_IMEI>",
           "ProtocolNumber": 4
         }
     headers:
       - name: Content-Type
         value: application/json
       - name: M2MOAuth2Token
-        value: faa127c35f0341fdb36961d8d5812b50
+        value: "<REDACTED_ACCESS_TOKEN>"
         description: ""
         disabled: false
     settings:
@@ -165,7 +165,7 @@ collection:
       mimeType: application/json
       text: |-
         {
-          "IMEI": "354513597707581",
+          "IMEI": "<REDACTED_IMEI>",
           "ProtocolNumber": 4,
           "LoadSignalLevel": true
         }
@@ -173,7 +173,7 @@ collection:
       - name: Content-Type
         value: application/json
       - name: M2MOAuth2Token
-        value: faa127c35f0341fdb36961d8d5812b50
+        value: "<REDACTED_ACCESS_TOKEN>"
         description: ""
         disabled: false
     settings:
@@ -198,18 +198,18 @@ collection:
       mimeType: application/json
       text: |-
         {
-          "IMEI": "354513597707581",
+          "IMEI": "<REDACTED_IMEI>",
           "ArmingState": 1,
           "PartitionNumber": "1",
-          "UserPIN": "1234",
-          "UserNumber": "1",
+          "UserPIN": "<REDACTED_USER_PIN>",
+          "UserNumber": "<REDACTED_ALARM_USER_NUMBER>",
           "ProtocolNumber": 4
         }
     headers:
       - name: Content-Type
         value: application/json
       - name: M2MOAuth2Token
-        value: faa127c35f0341fdb36961d8d5812b50
+        value: "<REDACTED_ACCESS_TOKEN>"
         description: ""
         disabled: false
     settings:
@@ -234,17 +234,17 @@ collection:
       mimeType: application/json
       text: |-
         {
-          "IMEI": "354513597707581",
+          "IMEI": "<REDACTED_IMEI>",
           "ArmingState": 2,
           "PartitionNumber": "1",
-          "UserPIN": "1234",
+          "UserPIN": "<REDACTED_USER_PIN>",
           "ProtocolNumber": 4
         }
     headers:
       - name: Content-Type
         value: application/json
       - name: M2MOAuth2Token
-        value: faa127c35f0341fdb36961d8d5812b50
+        value: "<REDACTED_ACCESS_TOKEN>"
         description: ""
         disabled: false
     settings:
@@ -269,17 +269,17 @@ collection:
       mimeType: application/json
       text: |-
         {
-          "IMEI": "354513597707581",
+          "IMEI": "<REDACTED_IMEI>",
           "ArmingState": 6,
           "PartitionNumber": "1",
-          "UserPIN": "1234",
+          "UserPIN": "<REDACTED_USER_PIN>",
           "ProtocolNumber": 4
         }
     headers:
       - name: Content-Type
         value: application/json
       - name: M2MOAuth2Token
-        value: f41c788a95fb42f6ab0d3ac262f29932
+        value: "<REDACTED_ACCESS_TOKEN>"
         description: ""
         disabled: false
     settings:
@@ -304,17 +304,17 @@ collection:
       mimeType: application/json
       text: |-
         {
-          "IMEI": "354513597707581",
+          "IMEI": "<REDACTED_IMEI>",
           "ArmingState": 0,
           "PartitionNumber": "1",
-          "UserPIN": "1234",
+          "UserPIN": "<REDACTED_USER_PIN>",
           "ProtocolNumber": 4
         }
     headers:
       - name: Content-Type
         value: application/json
       - name: M2MOAuth2Token
-        value: f41c788a95fb42f6ab0d3ac262f29932
+        value: "<REDACTED_ACCESS_TOKEN>"
         description: ""
         disabled: false
     settings:
@@ -339,18 +339,18 @@ collection:
       mimeType: application/json
       text: |-
         {
-          "IMEI": "354513597707581",
+          "IMEI": "<REDACTED_IMEI>",
           "ArmingState": 3,
           "OutPIN": "1",
           "OutDelay": "1",
-          "UserPIN": "1234",
+          "UserPIN": "<REDACTED_USER_PIN>",
           "ProtocolNumber": 4
         }
     headers:
       - name: Content-Type
         value: application/json
       - name: M2MOAuth2Token
-        value: f41c788a95fb42f6ab0d3ac262f29932
+        value: "<REDACTED_ACCESS_TOKEN>"
         description: ""
         disabled: false
     settings:
@@ -375,17 +375,17 @@ collection:
       mimeType: application/json
       text: |-
         {
-          "IMEI": "354513597707581",
-          "AlarmUserId": "1",
+          "IMEI": "<REDACTED_IMEI>",
+          "AlarmUserId": "<REDACTED_ALARM_USER_ID>",
           "Partition": "1",
           "BypassZonesId": [1],
-          "UserPIN": "1234"
+          "UserPIN": "<REDACTED_USER_PIN>"
         }
     headers:
       - name: Content-Type
         value: application/json
       - name: M2MOAuth2Token
-        value: 8c0df16cca1d412696c85479cc5b1bcf
+        value: "<REDACTED_ACCESS_TOKEN>"
         description: ""
         disabled: false
     settings:
@@ -410,14 +410,14 @@ collection:
       mimeType: application/json
       text: |-
         {
-          "IMEI": "354513597707581",
+          "IMEI": "<REDACTED_IMEI>",
           "EmergencyKey": 2
         }
     headers:
       - name: Content-Type
         value: application/json
       - name: M2MOAuth2Token
-        value: 8c0df16cca1d412696c85479cc5b1bcf
+        value: "<REDACTED_ACCESS_TOKEN>"
         description: ""
         disabled: false
     settings:
@@ -442,8 +442,8 @@ collection:
       mimeType: application/json
       text: |+
         {
-          "IMEI": "354513597707581",
-          "ID": 1093623,
+          "IMEI": "<REDACTED_IMEI>",
+          "ID": 0,
           "Name": "PGM Test 1",
           "ZoneTypes": [
             {
@@ -457,7 +457,7 @@ collection:
       - name: Content-Type
         value: application/json
       - name: M2MOAuth2Token
-        value: 8c0df16cca1d412696c85479cc5b1bcf
+        value: "<REDACTED_ACCESS_TOKEN>"
         description: ""
         disabled: false
     settings:
@@ -482,14 +482,14 @@ collection:
       mimeType: application/json
       text: |-
         {
-          "IMEI": "",
+          "IMEI": "<REDACTED_IMEI>",
           "ViewExternalOutputs": true
         }
     headers:
       - name: Content-Type
         value: application/json
       - name: M2MOAuth2Token
-        value: 49f354158424476fa6ef7074f84ec3cf
+        value: "<REDACTED_ACCESS_TOKEN>"
         description: ""
         disabled: false
     settings:
@@ -509,7 +509,7 @@ cookieJar:
   cookies:
     - id: ff4e4840-4705-4ffa-bfe1-476009fa4e81
       key: cookiesession1
-      value: 678A3E1AABCDEFGLMNOPQRSTV0123028
+      value: "<REDACTED_SESSION_COOKIE>"
       domain: app.m2mservices.com
       path: /
       secure: false
