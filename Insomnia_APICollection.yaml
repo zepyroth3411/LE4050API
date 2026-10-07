@@ -1,0 +1,524 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: API LE4050
+meta:
+  id: wrk_615ddc1cc6484ba6beff3a84ba42a9c9
+  created: 1791388186721
+  modified: 1791388186721
+  description: ""
+collection:
+  - url: https://app.m2mservices.com/CommonAdministrationService/api/v3/CreateAuthorizationCode
+    name: CreateAuthorizationCode
+    meta:
+      id: req_34484cdc68fd449eb3ee4d224eff6a68
+      created: 1791388197045
+      modified: 1791408515865
+      isPrivate: false
+      description: ""
+      sortKey: -1791388197045
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "UserName": "",
+          "UserPass": "",
+          "AdminRequest": false
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://app.m2mservices.com/CommonAdministrationService/api/v3/CreateAccessToken
+    name: CreateAccessToken
+    meta:
+      id: req_2e41b90be49d4592882515334c4d23be
+      created: 1791389996503
+      modified: 1791408070378
+      isPrivate: false
+      description: ""
+      sortKey: -1791389996503
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "AuthCode": "732cc7a0-65af-47f1-9a98-5d3b075a9df5"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://app.m2mservices.com/CommonAdministrationService/api/v3/GetHAUserSettings
+    name: GetHAUserSettings
+    meta:
+      id: req_d80995a208a540598de6dd5ede9a481c
+      created: 1791392513737
+      modified: 1791392911168
+      isPrivate: false
+      description: ""
+      sortKey: -1791392513737
+    method: POST
+    body:
+      mimeType: application/json
+      text: "{}"
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: M2MOAuth2Token
+        value: 5addab9c547a4d1ea298268fb4c1da83
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://app.m2mservices.com/CommonAdministrationService/api/v3/RegenerateAccessToken
+    name: RegenerateAccessToken
+    meta:
+      id: req_d71e228e5a594184926596c0db07a8d4
+      created: 1791392880966
+      modified: 1791393736136
+      isPrivate: false
+      description: ""
+      sortKey: -1791392880966
+    method: POST
+    body:
+      mimeType: application/json
+      text: "{}"
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: M2MOAuth2Token
+        value: 479141e7cdec42a082c4cb41abf61b0b
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://app.m2mservices.com/CommonAdministrationService/api/v3/GetAllDeviceData
+    name: GetAllDeviceData
+    meta:
+      id: req_ec017341df6e41288bee3c75cce3dbb9
+      created: 1791393695324
+      modified: 1791394925792
+      isPrivate: false
+      description: ""
+      sortKey: -1791393695324
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "IMEI": "354513597707581",
+          "ProtocolNumber": 4
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: M2MOAuth2Token
+        value: faa127c35f0341fdb36961d8d5812b50
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://app.m2mservices.com/CommonAdministrationService/api/v3/GetDeviceStatusData
+    name: GetDeviceStatusData
+    meta:
+      id: req_f3b3c80c1300412d872e8a9dfc91ebbd
+      created: 1791394366679
+      modified: 1791394861016
+      isPrivate: false
+      description: ""
+      sortKey: -1791394366679
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "IMEI": "354513597707581",
+          "ProtocolNumber": 4,
+          "LoadSignalLevel": true
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: M2MOAuth2Token
+        value: faa127c35f0341fdb36961d8d5812b50
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://app.m2mservices.com/CommonAdministrationService/api/v3/RemoteArm
+    name: RemoteArm-Arm Away
+    meta:
+      id: req_4badb8d8b84747678819f672ff3e7edd
+      created: 1791394861901
+      modified: 1791396522659
+      isPrivate: false
+      description: ""
+      sortKey: -1791394861901
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "IMEI": "354513597707581",
+          "ArmingState": 1,
+          "PartitionNumber": "1",
+          "UserPIN": "1234",
+          "UserNumber": "1",
+          "ProtocolNumber": 4
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: M2MOAuth2Token
+        value: faa127c35f0341fdb36961d8d5812b50
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://app.m2mservices.com/CommonAdministrationService/api/v3/RemoteArm
+    name: RemoteArm-Stay Arm One Partition
+    meta:
+      id: req_65419afc5f7a45fcbb4d4064af217296
+      created: 1791395640911
+      modified: 1791396535855
+      isPrivate: false
+      description: ""
+      sortKey: -1791395640911
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "IMEI": "354513597707581",
+          "ArmingState": 2,
+          "PartitionNumber": "1",
+          "UserPIN": "1234",
+          "ProtocolNumber": 4
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: M2MOAuth2Token
+        value: faa127c35f0341fdb36961d8d5812b50
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://app.m2mservices.com/CommonAdministrationService/api/v3/RemoteArm
+    name: RemoteArm-RemoteArm / Arm With Bypass
+    meta:
+      id: req_bb71364da3ff4605aa02afa2fe7d283e
+      created: 1791396469889
+      modified: 1791401954563
+      isPrivate: false
+      description: ""
+      sortKey: -1791396469889
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "IMEI": "354513597707581",
+          "ArmingState": 6,
+          "PartitionNumber": "1",
+          "UserPIN": "1234",
+          "ProtocolNumber": 4
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: M2MOAuth2Token
+        value: f41c788a95fb42f6ab0d3ac262f29932
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://app.m2mservices.com/CommonAdministrationService/api/v3/RemoteArm
+    name: RemoteArm-Disarm
+    meta:
+      id: req_71eb86a2635d49cdb0edaa173b136f21
+      created: 1791401908668
+      modified: 1791403146024
+      isPrivate: false
+      description: ""
+      sortKey: -1791401908668
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "IMEI": "354513597707581",
+          "ArmingState": 0,
+          "PartitionNumber": "1",
+          "UserPIN": "1234",
+          "ProtocolNumber": 4
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: M2MOAuth2Token
+        value: f41c788a95fb42f6ab0d3ac262f29932
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://app.m2mservices.com/CommonAdministrationService/api/v3/RemoteArm
+    name: RemoteArm-Switch Output 1 ON
+    meta:
+      id: req_de1e4e510f9f453e857dbf8d02c5210f
+      created: 1791403123864
+      modified: 1791403831483
+      isPrivate: false
+      description: ""
+      sortKey: -1791403123864
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "IMEI": "354513597707581",
+          "ArmingState": 3,
+          "OutPIN": "1",
+          "OutDelay": "1",
+          "UserPIN": "1234",
+          "ProtocolNumber": 4
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: M2MOAuth2Token
+        value: f41c788a95fb42f6ab0d3ac262f29932
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://app.m2mservices.com/CommonAdministrationService/api/v3/RemoteBypassExt
+    name: RemoteBypassExt_Bypass Zone
+    meta:
+      id: req_93acb345b9bd433daaa946e57a62a123
+      created: 1791403682378
+      modified: 1791404694024
+      isPrivate: false
+      description: ""
+      sortKey: -1791403682378
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "IMEI": "354513597707581",
+          "AlarmUserId": "1",
+          "Partition": "1",
+          "BypassZonesId": [1],
+          "UserPIN": "1234"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: M2MOAuth2Token
+        value: 8c0df16cca1d412696c85479cc5b1bcf
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://app.m2mservices.com/CommonAdministrationService/api/v3/triggerpanelemergencybutton
+    name: Panel Emergency_Panic/Medical/Fire
+    meta:
+      id: req_c6497da6212e4498a4125eead1b7c2e9
+      created: 1791404661476
+      modified: 1791406474697
+      isPrivate: false
+      description: ""
+      sortKey: -1791404661476
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "IMEI": "354513597707581",
+          "EmergencyKey": 2
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: M2MOAuth2Token
+        value: 8c0df16cca1d412696c85479cc5b1bcf
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://app.m2mservices.com/CommonAdministrationService/api/v3/SetExternalDeviceName
+    name: SetExternalDeviceName.
+    meta:
+      id: req_ec95deded7924c1c9020bd0655b9b74d
+      created: 1791406434844
+      modified: 1791407941695
+      isPrivate: false
+      description: ""
+      sortKey: -1791406434844
+    method: POST
+    body:
+      mimeType: application/json
+      text: |+
+        {
+          "IMEI": "354513597707581",
+          "ID": 1093623,
+          "Name": "PGM Test 1",
+          "ZoneTypes": [
+            {
+              "Code": 1,
+              "Name": "Zone Type 1"
+            }
+          ]
+        }
+
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: M2MOAuth2Token
+        value: 8c0df16cca1d412696c85479cc5b1bcf
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: https://app.m2mservices.com/CommonAdministrationService/api/v3/setexternaloutputsvisibility
+    name: SetExternalOutputsVisibility
+    meta:
+      id: req_b1eb4b57f700494eb1fd9ddbacba0bad
+      created: 1791407913270
+      modified: 1791408521575
+      isPrivate: false
+      description: ""
+      sortKey: -1791407913270
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "IMEI": "",
+          "ViewExternalOutputs": true
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: M2MOAuth2Token
+        value: 49f354158424476fa6ef7074f84ec3cf
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_df1dc05d6cd99d60499514d8542189f7216102b3
+    created: 1791388186726
+    modified: 1791388339927
+  cookies:
+    - id: ff4e4840-4705-4ffa-bfe1-476009fa4e81
+      key: cookiesession1
+      value: 678A3E1AABCDEFGLMNOPQRSTV0123028
+      domain: app.m2mservices.com
+      path: /
+      secure: false
+      httpOnly: true
+      hostOnly: true
+environments:
+  name: Base Environment
+  meta:
+    id: env_df1dc05d6cd99d60499514d8542189f7216102b3
+    created: 1791388186723
+    modified: 1791388186723
+    isPrivate: false
