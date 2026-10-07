@@ -49,7 +49,7 @@ The API documentation specifies that ID refers to the output's discovery ID, not
 ```json
 {
   "IMEI": "<REDACTED_IMEI>",
-  "ID": "<REDACTED_OUTPUT_ID>",
+  "ID": 0,
   "Name": "PGM Test 1"
 }
 ```
@@ -89,7 +89,7 @@ The same endpoint was tested using the optional ZoneTypes collection.
 ```json
 {
   "IMEI": "<REDACTED_IMEI>",
-  "ID": "<REDACTED_OUTPUT_ID>",
+  "ID": 0,
   "Name": "PGM Test 1",
   "ZoneTypes": [
     {
