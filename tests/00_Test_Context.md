@@ -2,7 +2,7 @@
 
 ## Test Context and Validation Methodology
 
-**Document status:** Draft  
+**Document status:** Validation cycle completed  
 **API:** M2M Mobile Integration API  
 **API version:** v3  
 **Environment:** Production  
@@ -12,119 +12,111 @@
 
 ## 1. Purpose
 
-This validation is intended to document the behavior of the M2M Mobile Integration API through controlled and reproducible tests.
+This repository records controlled validation of the M2M Mobile Integration API against a real alarm installation.
 
-The validation will distinguish between:
+The test documents distinguish between:
 
-- behavior explicitly described by the API specification;
-- behavior observed during testing;
-- functionality successfully validated against a real device;
-- functionality that remains pending validation.
-
----
-
-## 2. Validation terminology
-
-### DOCUMENTED
-
-Behavior explicitly described by the M2M Mobile Integration API specification.
-
-### OBSERVED
-
-Behavior seen during testing but not necessarily described as a formal API requirement.
-
-### VALIDATED
-
-Behavior successfully reproduced during a controlled test.
-
-### PENDING VALIDATION
-
-Functionality described by the API but not yet tested.
+- **DOCUMENTED** — behavior explicitly described by the API specification;
+- **OBSERVED** — behavior returned or seen during testing;
+- **VALIDATED** — behavior successfully reproduced during a controlled test;
+- **NOT VALIDATED** — behavior that was tested but not successfully reproduced.
 
 ---
 
-## 3. Test account strategy
+## 2. Test Environment
 
-The formal validation will use an end-user account associated with the test communicator.
+The validation used an end-user account associated with the test communicator.
 
-The real username and password will not be included in this documentation.
-
-Credentials will be represented as:
+Tested hardware reported by the API:
 
 ```text
-UserName: <END_USER>
-UserPass: <REDACTED>
+Communicator: LE4050M-LA
+Panel family: DSC PowerSeries NEO
+Panel model: HS2064
+Keybus mode: NEO
+ProtocolNumber: 4
 ```
 
-Access tokens, refresh tokens, authorization codes and panel PINs will also be redacted.
+Authentication and functional requests were sent against the production API.
 
 ---
 
-## 4. Preliminary observation regarding account types
+## 3. Authentication Context
 
-During preliminary testing, an administrative/dealer account was successfully authenticated using:
+The end-user authentication flow used:
 
 ```text
-AdminRequest: true
+CreateAuthorizationCode
+        ↓
+CreateAccessToken
+        ↓
+M2MOAuth2Token: <REDACTED_ACCESS_TOKEN>
 ```
 
-However, that session did not provide access to the communicator through the client/device workflow used during the tests.
-
-An end-user account associated with the communicator was therefore selected for the formal validation.
-
-This behavior is recorded as an observation from the current test environment and is not being treated as a general restriction of the API unless confirmed by the manufacturer.
+`RegenerateAccessToken` was also validated using the refresh token in the same authentication header.
 
 ---
 
-## 5. Test methodology
+## 4. Test Methodology
 
-Each endpoint will be validated independently.
+Each endpoint was tested independently with the minimum request needed for the target operation. Where useful, additional controlled variants were executed to confirm error handling, optional parameters, or state transitions.
 
-For every test, the following information will be recorded:
+For state-changing operations, API results were correlated with the physical panel and, where available, the official M2M application or monitoring/event system.
 
-1. Test identifier
-2. Endpoint
-3. Purpose
-4. Relevant behavior documented by the API
-5. Request method
-6. Request headers
-7. Request body
-8. Raw response
-9. Observed result
-10. Interpretation
-11. Validation status
-12. Open questions
+HTTP status alone is not treated as the operation result. The effective result is taken from:
 
-Sensitive information will always be redacted.
+- `Success`
+- `ErrorCode`
+- `ErrorString` or `ErrorMsg`
 
 ---
 
-## 6. Evidence handling
+## 5. Evidence and Redaction
 
-The API response will be stored as close as possible to the original response.
+Evidence is preserved as close as practical to the original API response while removing credentials and installation-specific identifiers.
 
-The following values may be replaced for security reasons:
+Values redacted from public evidence include:
 
-- `UserName`
-- `UserPass`
-- `AuthCode`
-- `TwoFactorAuthCode`
-- `AccessToken`
-- `RefreshToken`
-- `UserPIN`
+- usernames and passwords;
+- authorization, access and refresh tokens;
+- panel user PINs;
+- IMEI and communicator serial numbers;
+- SIM / ICCID identifiers;
+- client, controller and user identifiers;
+- account-specific UUIDs and internal installation identifiers.
 
-No API field names, response structures, error codes or status values will be modified.
+API field names, error codes, status values and functional response structure are preserved.
 
 ---
 
-## 7. Test sequence
+## 6. Validation Matrix
 
-The initial validation sequence will be:
+| Test | Endpoint / Operation | Result |
+|---|---|---|
+| TEST-001 | CreateAuthorizationCode | PASS |
+| TEST-002 | CreateAccessToken | PASS |
+| TEST-003 | GetHAUserSettings | PASS |
+| TEST-004 | RegenerateAccessToken | PASS |
+| TEST-005 | GetAllDeviceData | PASS |
+| TEST-006 | GetDeviceStatusData | PASS |
+| TEST-007A | RemoteArm — Arm Away | PASS |
+| TEST-007B | RemoteArm — Stay Arm | PASS |
+| TEST-007C | RemoteArm — Arm With Bypass | PARTIAL / documented behavior not reproduced |
+| TEST-007D | RemoteArm — Disarm | PASS |
+| TEST-007E | RemoteArm — Output ON/OFF | PASS |
+| TEST-008 | RemoteBypassExt — Bypass Zone | NOT VALIDATED |
+| TEST-009 | TriggerPanelEmergencyButton | PASS |
+| TEST-010 | SetExternalDeviceName | PASS |
+| TEST-011 | SetExternalOutputsVisibility | PASS |
 
-- **TEST-001** — CreateAuthorizationCode
-- **TEST-002** — CreateAccessToken
-- **TEST-003** — GetHAUserSettings
-- **TEST-004** — GetAllDeviceData
-- **TEST-005** — GetDeviceStatusData
+---
 
-Additional endpoints will be added as testing progresses.
+## 7. Repository Layout
+
+```text
+tests/      Controlled endpoint validation records
+evidence/   Sanitized full responses used as supporting evidence
+findings/   Cross-test findings, clarification requests and provider feedback
+```
+
+Individual test files are intended to remain factual and operation-focused. Cross-endpoint discrepancies and provider questions are kept separately in `findings/90_API_Findings_and_Feedback.md`.

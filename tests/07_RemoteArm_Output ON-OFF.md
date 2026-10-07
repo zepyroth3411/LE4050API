@@ -8,34 +8,32 @@
 **Method:** `POST`  
 **API Version:** v3  
 **Environment:** Production  
-**Status:** VALIDATED / PASS  
+**Status:** VALIDATED / PASS
 
 ---
 
 ## 1. Objective
 
-Validate remote activation and deactivation of a controllable output reported by the API as `COMM. OUTPUT 1`.
+Validate remote activation and deactivation of the controllable output returned as `COMM. OUTPUT 1`.
 
 ---
 
 ## 2. Output Under Test
 
-The device discovery response previously identified:
+Device discovery returned:
 
 ```text
-Name:          COMM. OUTPUT 1
-DevicePIN:     1
-Enabled:       true
+Name: COMM. OUTPUT 1
+DevicePIN: 1
+Enabled: true
 OnPINRequired: false
 ```
 
-The same output is exposed as a controllable PGM/output in the official M2M application.
+The same output was visible as a controllable output/PGM in the official M2M application.
 
 ---
 
-## 3. First Attempt — Without User PIN
-
-### Request
+## 3. Attempt Without User PIN
 
 ```json
 {
@@ -47,11 +45,11 @@ The same output is exposed as a controllable PGM/output in the official M2M appl
 }
 ```
 
-### Result
+Response:
 
 ```text
-Success:     false
-ErrorCode:   -1234
+Success: false
+ErrorCode: -1234
 ErrorString: ERROR: PIN REQUIRED
 ```
 
@@ -61,7 +59,7 @@ The output was not activated.
 
 ## 4. Output ON
 
-The request was repeated with the panel user PIN.
+The request was repeated with the panel user PIN:
 
 ```json
 {
@@ -74,20 +72,15 @@ The request was repeated with the panel user PIN.
 }
 ```
 
-### Physical Result
+`COMM. OUTPUT 1` activated successfully.
 
-`COMM. OUTPUT 1` was successfully activated.
-
-- `ArmingState: 3` = Output ON
-- `OutPIN: "1"`    = COMM. OUTPUT 1
-
-**Status:** PASS / VALIDATED
+**Result:** PASS / VALIDATED
 
 ---
 
 ## 5. Output OFF
 
-The output was subsequently deactivated using:
+The output was then deactivated using:
 
 ```json
 {
@@ -99,65 +92,45 @@ The output was subsequently deactivated using:
 }
 ```
 
-### Physical Result
+`COMM. OUTPUT 1` deactivated successfully.
 
-`COMM. OUTPUT 1` was successfully deactivated.
-
-- `ArmingState: 4` = Output OFF
-- `OutPIN: "1"`    = COMM. OUTPUT 1
-
-**Status:** PASS / VALIDATED
+**Result:** PASS / VALIDATED
 
 ---
 
-## 6. Important Observation
+## 6. Observed PIN Requirement
 
-During device discovery, the output reported:
+Discovery reported:
 
-- `OnPINRequired: false`
+```text
+OnPINRequired: false
+```
 
-However, execution without `UserPIN` returned:
+Execution without `UserPIN` returned:
 
 ```text
 ErrorCode: -1234
 ERROR: PIN REQUIRED
 ```
 
-After adding `UserPIN`, output control succeeded.
-
-This creates a discrepancy between the discovery metadata and the actual execution requirement.
-
-### Classification
-
-| Item | Status |
-|---|---|
-| Output discovery | VALIDATED |
-| Output ON | VALIDATED |
-| Output OFF | VALIDATED |
-| PIN required in execution | VALIDATED |
-| `OnPINRequired: false` | OBSERVED |
-| Metadata/runtime mismatch | OPEN QUESTION |
+Execution succeeded after `UserPIN` was included. Both values are retained as observed behavior.
 
 ---
 
 ## 7. Validation Result
 
-**PASS**
+**PASS / VALIDATED**
 
 Validated:
 
-- `ArmingState: 3` activates the output;
-- `ArmingState: 4` deactivates the output;
+- `ArmingState: 3` activates the selected output;
+- `ArmingState: 4` deactivates it;
 - `OutPIN: "1"` selects `COMM. OUTPUT 1`;
 - physical output control works;
-- `UserPIN` was required by the real execution path.
+- the tested execution path required `UserPIN`.
 
 ---
 
-## 8. Open Question for API Provider
+## 8. Security Notes
 
-Why does the device discovery response report:
-
-- `OnPINRequired: false`
-
-while the actual `RemoteArm` output command requires `UserPIN` and returns `-1234 PIN REQUIRED` when it is omitted?
+Access token, IMEI and panel PIN are redacted.

@@ -13,19 +13,7 @@
 
 ## 1. Objective
 
-Validate retrieval of the current device and alarm-panel configuration associated with an authenticated end-user account.
-
-The test is intended to identify:
-
-- communicator information;
-- connected alarm-panel type;
-- connection status;
-- partitions;
-- zones and zone states;
-- available outputs;
-- remote-control capabilities;
-- panel trouble information;
-- emergency-key availability.
+Validate retrieval of the current communicator, panel, partition, zone, output, trouble and emergency-key information associated with the authenticated end-user account.
 
 ---
 
@@ -35,8 +23,6 @@ The test is intended to identify:
 POST https://app.m2mservices.com/CommonAdministrationService/api/v3/GetAllDeviceData
 ```
 
----
-
 ## 3. Authentication
 
 ```http
@@ -44,15 +30,7 @@ M2MOAuth2Token: <REDACTED_ACCESS_TOKEN>
 Content-Type: application/json
 ```
 
----
-
-## 4. Documented Request
-
-According to the API specification, the device can be identified using either `IMEI` or `SerialNumber`.
-
-If both are supplied, `IMEI` takes precedence.
-
-For this test:
+## 4. Request
 
 ```json
 {
@@ -61,45 +39,29 @@ For this test:
 }
 ```
 
----
-
-## 5. Documented Behavior
-
-According to the API specification, `GetAllDeviceData` returns the current state of the device, including:
-
-- partitions;
-- zones;
-- outputs;
-- arming state.
-
-Entries returned in `ExternalDevices` contain a `Regime` field that identifies the type of object.
-
-Partition entries may also include:
-
-- `DeviceState`;
-- `DeviceStateExt`;
-- `ZonesInfo`.
+The API specification also permits device identification by `SerialNumber`.
 
 ---
 
-## 6. Observed Response Structure
+## 5. Observed Response
 
-The successful response contained the following major sections:
+The response returned HTTP 200 with:
 
-- `ClientDeviceDataV2Response`
-- `AlarmControlSettingsV2Response`
-- `AlarmZoneUserGroupPartitionV2Response`
-- `CamerasDataV2Response`
-- `NFC_Tags`
-- `Success`
-- `ErrorCode`
-- `ErrorString`
+```text
+Success: true
+ErrorCode: 0
+ErrorString: OK
+```
 
-The complete sanitized response is stored separately as test evidence.
+The complete sanitized response is stored in:
+
+```text
+evidence/05_GetAllDeviceData_response_sanitized.json
+```
 
 ---
 
-## 7. Communicator and Panel Detection
+## 6. Communicator and Panel Identification
 
 The API identified the tested installation as:
 
@@ -113,236 +75,127 @@ AllowRemotePermissions: true
 RemoteAccessDynamicControls: true
 ```
 
-This validates that the API can identify both the communicator and the connected DSC panel family/model.
-
 ---
 
-## 8. Panel Capabilities
+## 7. Panel Capabilities
 
-The response reported:
+Observed values included:
 
-- `EnableZonesState:      true`
-- `EnableBypass:          true`
-- `Connected:             true`
-- `ArmDisarmDisabled:     false`
-- `HasPanelEmergencyKeys: true`
+```text
+EnableZonesState: true
+EnableBypass: true
+Connected: true
+ArmDisarmDisabled: false
+HasPanelEmergencyKeys: true
+```
 
----
-
-## 9. Emergency Keys
-
-The following emergency keys were returned:
+The emergency-key list contained:
 
 - Fire
 - Medical
 - Panic
 
-No emergency action was executed during this test.
-
-- Discovery: **VALIDATED**
-- Functional execution: **NOT TESTED**
-
 ---
 
-## 10. Partition Discovery
+## 8. Partition Discovery
 
-One alarm partition was discovered:
+One alarm partition was returned:
 
 ```text
-Name:            Area 1
-Regime:          3
+Name: Area 1
+Regime: 3
 PartitionNumber: 1
-Enabled:         true
+Enabled: true
+OnPINRequired: true
+OffPINRequired: true
 ```
 
-The following command definitions were returned:
+Command definitions returned for the partition:
 
-- `CheckStateCommand: #RCARMED`
-- `OnStayCommand:     #RCSTAYARM`
-- `OnCommand:         #RCARM`
-- `OffCommand:        #RCDISARM`
+```text
+CheckStateCommand: #RCARMED
+OnStayCommand: #RCSTAYARM
+OnCommand: #RCARM
+OffCommand: #RCDISARM
+```
 
-The partition also reported:
+At the time of this request:
 
-- `OnPINRequired:  true`
-- `OffPINRequired: true`
+```text
+DeviceState: 2
+DeviceStateExt: 7
+```
 
-This demonstrates that remote arm/disarm command definitions exist for the discovered partition.
-
-Actual arm/disarm execution remains pending separate validation.
+`DeviceStateExt: 7` is documented as **not ready to arm**.
 
 ---
 
-## 11. Current Partition State
+## 9. Zone Discovery
+
+Sixteen zones were returned.
+
+| Zones | ZoneState | Interpreted State |
+|---|---:|---|
+| 001–008 | 2 | OPEN |
+| 009–016 | 1 | CLOSED |
+
+This was consistent with the partition reporting a not-ready condition.
+
+---
+
+## 10. Trouble Information
 
 The partition returned:
-
-- `DeviceState:    2`
-- `DeviceStateExt: 7`
-
-According to the API specification:
-
-- `DeviceStateExt 7 = not ready to arm`
-
-Therefore, at the moment of this request the partition reported a **NOT_READY** condition.
-
----
-
-## 12. Zone Discovery
-
-Sixteen zones were returned for Partition 1.
-
-Observed state summary:
-
-- Zones 001–008 → `ZoneState 2`
-- Zones 009–016 → `ZoneState 1`
-
-According to the API specification:
-
-- `ZoneState 1 = closed`
-- `ZoneState 2 = open`
-
-Therefore, during this test:
-
-- Zones 001–008 → **OPEN**
-- Zones 009–016 → **CLOSED**
-
-This state is consistent with the partition reporting `DeviceStateExt: 7` (NOT_READY).
-
----
-
-## 13. Trouble Information
-
-The partition returned the following troubles:
 
 - `ServiceRequired`
 - `MissingBattery`
 - `BellCircuit`
 - `LossofTimeorDate`
 
-These values are recorded exactly as returned by the API.
-
-No attempt is made in this test to diagnose or resolve these trouble conditions.
+The values are preserved exactly as returned by the API.
 
 ---
 
-## 14. Output Discovery
+## 11. Output Discovery
 
-Four external outputs were returned:
+Four controllable entries were returned:
 
 | Name | DevicePIN | Regime | Enabled | OnPINRequired |
-|---|---|---|---|---|
+|---|---:|---:|---|---|
 | COMM. OUTPUT 1 | 1 | 5 | true | false |
 | COMM. OUTPUT 2 | 2 | 5 | true | false |
 | COMM. OUTPUT 3 | 3 | 5 | true | false |
 | COMM. OUTPUT 4 | 4 | 5 | true | false |
 
-The returned command templates followed the pattern:
+The returned command template followed:
 
 ```text
 #setextgpio,<OUTPUT>,0,{DELAY},{USERID},{PIN},{PARTITION}
 ```
 
-Actual output activation remains pending functional validation.
+Functional output control was validated separately in TEST-007E.
 
 ---
 
-## 15. Documentation Clarification Required
+## 12. Validation Result
 
-The API specification describes:
+**PASS / VALIDATED**
 
-- `Regime 3 = alarm partition`
-- `Regime 5 = momentary panel PGM`
+Validated in this test:
 
-However, the tested device returned four entries named:
-
-- COMM. OUTPUT 1
-- COMM. OUTPUT 2
-- COMM. OUTPUT 3
-- COMM. OUTPUT 4
-
-with:
-
-- `Regime: 5`
-
-and `#setextgpio` command templates.
-
-This behavior is recorded as observed and should not be reclassified without confirmation from the API provider.
-
-### Open Question
-
-What is the intended distinction between:
-
-- communicator outputs;
-- panel PGMs;
-
-when an entry named `COMM. OUTPUT` is returned with `Regime: 5`?
-
----
-
-## 16. Validation Result
-
-**PASS**
-
-Validated:
-
-- authenticated device-data retrieval;
-- communicator discovery;
-- communicator model identification;
-- connected DSC panel identification;
+- communicator discovery and model identification;
+- connected panel family/model identification;
 - connection status;
-- partition discovery;
-- zone discovery;
-- current zone-state retrieval;
-- current partition-state retrieval;
+- partition discovery and current partition state;
+- zone discovery and current zone states;
 - trouble retrieval;
 - output discovery;
 - emergency-key discovery.
 
-Not yet functionally validated:
-
-- Remote arm
-- Remote disarm
-- Zone bypass
-- Output activation
-- Panel PGM activation
-- Emergency commands
+Functional actions discovered here were validated separately by later endpoint tests.
 
 ---
 
-## 17. Security Notes
+## 13. Security Notes
 
-The following values should be redacted from manufacturer-facing test evidence unless specifically required for technical support:
-
-- `AccessToken`
-- `IMEI`
-- `SerialNumber`
-- `ControllerClientID`
-- `ClientName`
-- `CardNo`
-- `BackupCardNo`
-- `SiteNo`
-- `ConnectedProxyUrls`
-- `ConnectedEndpointUrls`
-- Internal IDs
-- User IDs / UUIDs
-- `AlarmUserNumber`
-
-Hardware/software identification values such as:
-
-- `HSCode`
-- `MIDLetVersion`
-- `KeybusMode`
-- `KeybusSubMode`
-
-may remain visible because they are relevant to reproducibility.
-
----
-
-## 18. Evidence
-
-Complete sanitized response:
-
-```text
-evidence/05_GetAllDeviceData_response_sanitized.json
-```
+Public evidence redacts credentials, IMEI, communicator serial number, SIM identifiers, client/user/controller identifiers and other installation-specific IDs while preserving API field names and operational state values.

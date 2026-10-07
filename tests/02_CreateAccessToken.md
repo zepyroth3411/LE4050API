@@ -147,7 +147,7 @@ For this test:
 - `AdminLogin: false`
 - `BypassToken: null`
 
-Their complete purpose should not be inferred solely from this response and may require clarification from the API provider if they are not formally described in the specification.
+Their complete purpose was not evaluated in this test.
 
 ---
 
